@@ -1,6 +1,7 @@
 FROM maven:3.3.3
 
 ADD pom.xml /tmp/build/
+COPY settings.xml /usr/share/maven/conf/settings.xml
 RUN cd /tmp/build && mvn -q dependency:resolve
 
 ADD src /tmp/build/src
