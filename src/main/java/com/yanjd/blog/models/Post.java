@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 @Data
-@Document("blog_post")
+@Document("blog_v2_post")
 public class Post {
-    private ObjectId id;
-    private String title;
-    private String content;
-    private ArrayList<String> tags;
-    private ArrayList<String> categories;
-    private String intro;
-    private String markdown;
-    private Date date;
+    ObjectId id;
+    String title;
+    String content;
+    ArrayList<String> tags;
+    ArrayList<String> categories;
+    String intro;
+    String markdown;
+    Date date;
 }
