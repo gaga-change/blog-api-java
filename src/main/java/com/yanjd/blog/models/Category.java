@@ -1,14 +1,16 @@
 package com.yanjd.blog.models;
 
 import lombok.Data;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.*;
 
 @Data
-@Document("blog_v2_category")
+@Entity
+@Table(name = "blog_category", schema = "category")
 public class Category {
-    ObjectId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
     String name; // 名称
     String alias; // 别名（挂载url）
     String color; // 颜色

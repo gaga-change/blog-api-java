@@ -1,21 +1,24 @@
 package com.yanjd.blog.models;
 
 import lombok.Data;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Data
-@Document("blog_v2_post")
+@Entity
+@Table(name = "blog_post", schema = "post")
 public class Post {
-    ObjectId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    int id;
     String title;
     String content;
-    ArrayList<String> tags;
-    ArrayList<String> categories;
     String intro;
     String markdown;
     Date date;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
+    @JoinTable(name="post_tag",joinColumns={@JoinColumn(name="post_id")},inverseJoinColumns={@JoinColumn(name="tag_id")})
+    Set<Tag> tags;
 }
