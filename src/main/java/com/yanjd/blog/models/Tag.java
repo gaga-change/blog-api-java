@@ -3,11 +3,12 @@ package com.yanjd.blog.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "blog_tag", schema = "tag")
+@Table(name = "blog_tag", schema = "tags")
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,7 +17,6 @@ public class Tag {
     String alias; // 别名（挂载url）
     String color; // 颜色
     int num; // 数量
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
-    @JoinTable(name="post_tag",joinColumns={@JoinColumn(name="tag_id")},inverseJoinColumns={@JoinColumn(name="post_id")})
-    Set<Post> posts;
+    @ManyToMany(mappedBy = "tags")
+    private List<Post> posts = new ArrayList<>();
 }

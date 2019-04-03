@@ -1,14 +1,15 @@
 package com.yanjd.blog.models;
 
+import com.yanjd.blog.models.projection.PostSmall;
 import lombok.Data;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Entity
-@Table(name = "blog_post", schema = "post")
+@Table(name = "blog_post", schema = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +19,9 @@ public class Post {
     String intro;
     String markdown;
     Date date;
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch=FetchType.LAZY)
-    @JoinTable(name="post_tag",joinColumns={@JoinColumn(name="post_id")},inverseJoinColumns={@JoinColumn(name="tag_id")})
-    Set<Tag> tags;
+    @ManyToMany
+    @JoinTable(name = "rel_tag_post",
+            joinColumns = @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id", nullable = false))
+    Set<Tag> tags = new HashSet<>();
 }
